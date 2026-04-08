@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minha Área | Oficina Bandeira</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+    * { font-family: 'Poppins', sans-serif; }
+    body { background: #0f172a; color: #e2e8f0; }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 240px; min-height: 100vh;
+      background: #0a0f1e;
+      border-right: 1px solid rgba(255,255,255,0.06);
+      position: fixed; top: 0; left: 0;
+      display: flex; flex-direction: column;
+      z-index: 100;
+    }
+    .sidebar-brand { padding: 24px 20px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .sidebar-nav { padding: 16px 12px; flex: 1; }
+    .sidebar-link {
+      display: flex; align-items: center; gap: 10px;
+      color: #64748b; text-decoration: none;
+      padding: 10px 12px; border-radius: 8px;
+      font-size: .9rem; font-weight: 500;
+      transition: all .2s; margin-bottom: 4px;
+    }
+    .sidebar-link:hover, .sidebar-link.active {
+      background: rgba(220,53,69,.12);
+      color: #dc3545;
+    }
+    .sidebar-link i { font-size: 1.1rem; }
+
+    /* MAIN */
+    .main { margin-left: 240px; padding: 32px; }
+
+    /* CARDS */
+    .dash-card {
+      background: #1e293b;
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px;
+    }
+    .dash-card .card-header {
+      background: transparent;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      padding: 16px 20px;
+      font-weight: 600; color: #f1f5f9;
+    }
+
+    /* FORM */
+    .form-control, .form-select {
+      background: #0f172a;
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #e2e8f0; border-radius: 8px;
+    }
+    .form-control:focus, .form-select:focus {
+      background: #0f172a; border-color: #dc3545;
+      color: #e2e8f0; box-shadow: 0 0 0 3px rgba(220,53,69,.15);
+    }
+    .form-control::placeholder { color: #475569; }
+    .form-label { color: #94a3b8; font-size: .85rem; }
+    .form-select option { background: #1e293b; }
+
+    /* VEICULO CARD */
+    .veiculo-item {
+      background: #0f172a;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 10px; padding: 14px;
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 10px;
+    }
+    .veiculo-item img { width: 72px; height: 54px; object-fit: cover; border-radius: 6px; }
+    .veiculo-item .no-foto {
+      width: 72px; height: 54px; border-radius: 6px;
+      background: #1e293b; display: flex; align-items: center; justify-content: center;
+      color: #475569; font-size: 1.4rem;
+    }
+    .veiculo-info { flex: 1; }
+    .veiculo-info strong { color: #f1f5f9; font-size: .95rem; }
+    .veiculo-info span { color: #64748b; font-size: .8rem; }
+
+    /* ANUNCIO CARD */
+    .anuncio-item {
+      background: #0f172a;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 10px; padding: 14px;
+      margin-bottom: 10px;
+    }
+
+    /* STAT */
+    .stat-card {
+      background: #1e293b;
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px; padding: 20px;
+      text-align: center;
+    }
+    .stat-card .num { font-size: 2rem; font-weight: 700; color: #dc3545; }
+    .stat-card .lbl { color: #64748b; font-size: .85rem; }
+
+    /* ALERT */
+    .alerta-erro    { background: rgba(220,53,69,.15); border: 1px solid rgba(220,53,69,.3); color: #fca5a5; border-radius: 8px; }
+    .alerta-sucesso { background: rgba(34,197,94,.12); border: 1px solid rgba(34,197,94,.3); color: #86efac; border-radius: 8px; }
+
+    /* AUTOCOMPLETE */
+    .autocomplete-list {
+      position: absolute; top: 100%; left: 0; right: 0;
+      background: #1e293b;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 0 0 8px 8px;
+      max-height: 220px; overflow-y: auto;
+      z-index: 999; list-style: none; margin: 0; padding: 4px 0;
+    }
+    .autocomplete-list li {
+      padding: 8px 14px; color: #cbd5e1; cursor: pointer; font-size: .88rem;
+    }
+    .autocomplete-list li:hover, .autocomplete-list li.active {
+      background: rgba(220,53,69,.15); color: #fff;
+    }
+
+    /* DROPZONE */
+    .foto-dropzone {
+      border: 2px dashed rgba(220,53,69,.4);
+      border-radius: 10px; padding: 32px;
+      text-align: center; cursor: pointer;
+      transition: border-color .2s, background .2s;
+    }
+    .foto-dropzone:hover, .foto-dropzone.drag-over {
+      border-color: #dc3545;
+      background: rgba(220,53,69,.06);
+    }
+
+    /* PREVIEW FOTOS */
+    .foto-preview {
+      position: relative; width: 90px; height: 70px;
+    }
+    .foto-preview img {
+      width: 100%; height: 100%; object-fit: cover;
+      border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);
+    }
+    .foto-preview .remover {
+      position: absolute; top: -6px; right: -6px;
+      background: #dc3545; color: #fff;
+      border: none; border-radius: 50%;
+      width: 20px; height: 20px; font-size: .7rem;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; line-height: 1;
+    }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      .sidebar { width: 100%; min-height: auto; position: relative; flex-direction: row; flex-wrap: wrap; }
+      .sidebar-nav { display: flex; flex-wrap: wrap; padding: 8px; }
+      .sidebar-link { padding: 8px 10px; font-size: .8rem; }
+      .main { margin-left: 0; padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="sidebar-brand">
+    <a href="index.html" class="text-decoration-none d-flex align-items-center gap-2">
+      <i class="bi bi-tools text-danger fs-5"></i>
+      <span class="fw-bold text-white" style="font-size:.9rem">OFICINA BANDEIRA</span>
+    </a>
+    <div class="mt-2 small" style="color:#475569" id="saudacao">Olá!</div>
+  </div>
+  <nav class="sidebar-nav">
+    <a href="#" class="sidebar-link active" onclick="mostrarSecao('visao-geral')">
+      <i class="bi bi-grid"></i> Visão Geral
+    </a>
+    <a href="#" class="sidebar-link" onclick="mostrarSecao('meus-veiculos')">
+      <i class="bi bi-car-front"></i> Meus Veículos
+    </a>
+    <a href="#" class="sidebar-link" onclick="mostrarSecao('meus-anuncios')">
+      <i class="bi bi-megaphone"></i> Meus Anúncios
+    </a>
+    <a href="#" class="sidebar-link" onclick="mostrarSecao('novo-veiculo')">
+      <i class="bi bi-plus-circle"></i> Cadastrar Veículo
+    </a>
+    <a href="#" class="sidebar-link" onclick="mostrarSecao('novo-anuncio')">
+      <i class="bi bi-tag"></i> Criar Anúncio
+    </a>
+  </nav>
+  <div class="p-3 border-top" style="border-color:rgba(255,255,255,0.06)!important">
+    <a href="index.html" class="sidebar-link"><i class="bi bi-house"></i> Site</a>
+    <a href="#" class="sidebar-link text-danger" onclick="logout()"><i class="bi bi-box-arrow-left"></i> Sair</a>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- VISÃO GERAL -->
+  <div id="secao-visao-geral">
+    <h4 class="fw-bold mb-1">Visão Geral</h4>
+    <p style="color:#64748b" class="mb-4 small">Bem-vindo à sua área</p>
+    <div class="row g-3 mb-4">
+      <div class="col-6 col-md-3"><div class="stat-card"><div class="num" id="statVeiculos">—</div><div class="lbl">Veículos</div></div></div>
+      <div class="col-6 col-md-3"><div class="stat-card"><div class="num" id="statAnuncios">—</div><div class="lbl">Anúncios Ativos</div></div></div>
+    </div>
+    <div class="dash-card">
+      <div class="card-header"><i class="bi bi-person me-2 text-danger"></i>Meus Dados</div>
+      <div class="p-4">
+        <p class="mb-1"><span style="color:#64748b">Nome:</span> <span id="perfilNome" class="ms-2">—</span></p>
+        <p class="mb-1"><span style="color:#64748b">E-mail:</span> <span id="perfilEmail" class="ms-2">—</span></p>
+        <p class="mb-0"><span style="color:#64748b">Membro desde:</span> <span id="perfilData" class="ms-2">—</span></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MEUS VEÍCULOS -->
+  <div id="secao-meus-veiculos" class="d-none">
+    <h4 class="fw-bold mb-1">Meus Veículos</h4>
+    <p style="color:#64748b" class="mb-4 small">Veículos cadastrados na sua conta</p>
+    <div id="listaVeiculos"><div class="text-center py-5" style="color:#475569"><i class="bi bi-car-front fs-1 d-block mb-2"></i>Nenhum veículo cadastrado.</div></div>
+  </div>
+
+  <!-- MEUS ANÚNCIOS -->
+  <div id="secao-meus-anuncios" class="d-none">
+    <h4 class="fw-bold mb-1">Meus Anúncios</h4>
+    <p style="color:#64748b" class="mb-4 small">Anúncios publicados por você</p>
+    <div id="listaAnuncios"><div class="text-center py-5" style="color:#475569"><i class="bi bi-megaphone fs-1 d-block mb-2"></i>Nenhum anúncio publicado.</div></div>
+  </div>
+
+  <!-- NOVO VEÍCULO -->
+  <div id="secao-novo-veiculo" class="d-none">
+    <h4 class="fw-bold mb-1">Cadastrar Veículo</h4>
+    <p style="color:#64748b" class="mb-4 small">Adicione um novo veículo à sua conta</p>
+    <div class="dash-card">
+      <div class="p-4">
+        <div id="alertaVeiculo" class="d-none p-3 mb-3 small"></div>
+        <form id="formVeiculo" onsubmit="cadastrarVeiculo(event)">
+          <div class="row g-3">
+
+            <!-- MARCA -->
+            <div class="col-md-6">
+              <label class="form-label">Marca *</label>
+              <div class="autocomplete-wrap position-relative">
+                <input type="text" id="vMarca" class="form-control" placeholder="Digite ou selecione a marca" autocomplete="off" required>
+                <ul id="listaMarcas" class="autocomplete-list d-none"></ul>
+              </div>
+            </div>
+
+            <!-- MODELO -->
+            <div class="col-md-6">
+              <label class="form-label">Modelo *</label>
+              <div class="autocomplete-wrap position-relative">
+                <input type="text" id="vModelo" class="form-control" placeholder="Selecione a marca primeiro" autocomplete="off" required disabled>
+                <ul id="listaModelos" class="autocomplete-list d-none"></ul>
+              </div>
+            </div>
+
+            <!-- ANO -->
+            <div class="col-md-4">
+              <label class="form-label">Ano *</label>
+              <select id="vAno" class="form-select" required>
+                <option value="">Selecione...</option>
+              </select>
+            </div>
+
+            <!-- COR -->
+            <div class="col-md-4">
+              <label class="form-label">Cor *</label>
+              <select id="vCor" class="form-select" required>
+                <option value="">Selecione...</option>
+                <option>Branco</option><option>Preto</option><option>Prata</option>
+                <option>Cinza</option><option>Vermelho</option><option>Azul</option>
+                <option>Verde</option><option>Amarelo</option><option>Laranja</option>
+                <option>Marrom</option><option>Bege</option><option>Dourado</option>
+                <option>Vinho</option><option>Rosa</option><option>Roxo</option>
+              </select>
+            </div>
+
+            <!-- KM -->
+            <div class="col-md-4">
+              <label class="form-label">Quilometragem *</label>
+              <input type="text" id="vKm" class="form-control" placeholder="Ex: 45.000 km" required>
+            </div>
+
+            <!-- DESCRIÇÃO -->
+            <div class="col-12">
+              <label class="form-label">Descrição</label>
+              <textarea id="vDesc" class="form-control" rows="3" placeholder="Detalhes do veículo..."></textarea>
+            </div>
+
+            <!-- FOTOS -->
+            <div class="col-12">
+              <label class="form-label">Fotos do veículo <span style="color:#475569">(máx. 10, 5MB cada)</span></label>
+              <div id="fotoDropzone" class="foto-dropzone" onclick="document.getElementById('vFotos').click()">
+                <i class="bi bi-cloud-upload fs-2 text-danger"></i>
+                <p class="mb-0 mt-2" style="color:#64748b">Clique ou arraste as fotos aqui</p>
+                <p class="small mb-0" style="color:#475569">JPG, PNG ou WEBP</p>
+              </div>
+              <input type="file" id="vFotos" accept="image/*" multiple class="d-none">
+              <div id="previewFotos" class="d-flex flex-wrap gap-2 mt-3"></div>
+            </div>
+
+          </div>
+          <button type="submit" class="btn btn-danger mt-4 px-4" id="btnSalvarVeiculo">
+            <i class="bi bi-plus-circle me-2"></i>Cadastrar Veículo
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOVO ANÚNCIO -->
+  <div id="secao-novo-anuncio" class="d-none">
+    <h4 class="fw-bold mb-1">Criar Anúncio</h4>
+    <p style="color:#64748b" class="mb-4 small">Anuncie um veículo para venda</p>
+    <div class="dash-card">
+      <div class="p-4">
+        <div id="alertaAnuncio" class="d-none p-3 mb-3 small"></div>
+        <form id="formAnuncio" onsubmit="criarAnuncio(event)">
+          <div class="row g-3">
+            <div class="col-12">
+              <label class="form-label">Veículo *</label>
+              <select id="aVeiculo" class="form-select" required>
+                <option value="">Selecione um veículo...</option>
+              </select>
+            </div>
+            <div class="col-md-6"><label class="form-label">Preço (R$) *</label><input type="number" id="aPreco" class="form-control" placeholder="Ex: 45000" min="0" step="0.01" required></div>
+            <div class="col-12"><label class="form-label">Descrição do anúncio</label><textarea id="aDesc" class="form-control" rows="3" placeholder="Descreva o veículo para os compradores..."></textarea></div>
+          </div>
+          <button type="submit" class="btn btn-danger mt-4 px-4" id="btnSalvarAnuncio">
+            <i class="bi bi-megaphone me-2"></i>Publicar Anúncio
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<script>
+const API = 'http://localhost:3001/api';
+
+// ── AUTH GUARD ────────────────────────────────────────────────────────────────
+const token   = localStorage.getItem('ob_token');
+const usuario = JSON.parse(localStorage.getItem('ob_usuario') || 'null');
+if (!token || !usuario) window.location.href = 'login.html';
+
+document.getElementById('saudacao').textContent = `Olá, ${usuario.nome.split(' ')[0]}!`;
+
+function logout() {
+  localStorage.removeItem('ob_token');
+  localStorage.removeItem('ob_usuario');
+  window.location.href = 'login.html';
+}
+
+// ── NAVEGAÇÃO ─────────────────────────────────────────────────────────────────
+function mostrarSecao(id) {
+  document.querySelectorAll('[id^="secao-"]').forEach(el => el.classList.add('d-none'));
+  document.getElementById(`secao-${id}`).classList.remove('d-none');
+  document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+
+  if (id === 'meus-veiculos') carregarVeiculos();
+  if (id === 'meus-anuncios') carregarAnuncios();
+  if (id === 'novo-anuncio')  carregarVeiculosSelect();
+}
+
+// ── API HELPER ────────────────────────────────────────────────────────────────
+async function api(path, opts = {}) {
+  const res = await fetch(`${API}${path}`, {
+    ...opts,
+    headers: { 'Authorization': `Bearer ${token}`, ...(opts.headers || {}) }
+  });
+  if (res.status === 401) { logout(); return; }
+  return res;
+}
+
+// ── VISÃO GERAL ───────────────────────────────────────────────────────────────
+async function carregarVisaoGeral() {
+  const [rv, ra, rp] = await Promise.all([
+    api('/veiculos'),
+    api('/anuncios/meus'),
+    api('/auth/perfil')
+  ]);
+  const veiculos = await rv.json();
+  const anuncios = await ra.json();
+  const perfil   = await rp.json();
+
+  document.getElementById('statVeiculos').textContent = veiculos.length;
+  document.getElementById('statAnuncios').textContent = anuncios.filter(a => a.ativo).length;
+  document.getElementById('perfilNome').textContent   = perfil.nome;
+  document.getElementById('perfilEmail').textContent  = perfil.email;
+  document.getElementById('perfilData').textContent   = new Date(perfil.criado_em).toLocaleDateString('pt-BR');
+}
+
+// ── VEÍCULOS ──────────────────────────────────────────────────────────────────
+async function carregarVeiculos() {
+  const res = await api('/veiculos');
+  const lista = await res.json();
+  const el = document.getElementById('listaVeiculos');
+
+  if (!lista.length) {
+    el.innerHTML = `<div class="text-center py-5" style="color:#475569"><i class="bi bi-car-front fs-1 d-block mb-2"></i>Nenhum veículo cadastrado.</div>`;
+    return;
+  }
+  el.innerHTML = lista.map(v => `
+    <div class="veiculo-item">
+      ${v.foto
+        ? `<img src="http://localhost:3001${v.foto}" alt="${v.modelo}">`
+        : `<div class="no-foto"><i class="bi bi-car-front"></i></div>`}
+      <div class="veiculo-info">
+        <strong>${v.marca} ${v.modelo}</strong><br>
+        <span>${v.ano} · ${v.cor} · ${v.quilometragem}</span>
+      </div>
+      <button class="btn btn-sm btn-outline-danger ms-auto" onclick="deletarVeiculo(${v.id})">
+        <i class="bi bi-trash"></i>
+      </button>
+    </div>
+  `).join('');
+}
+
+async function cadastrarVeiculo(e) {
+  e.preventDefault();
+  const btn = document.getElementById('btnSalvarVeiculo');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Salvando...';
+
+  const form = new FormData();
+  form.append('marca',         document.getElementById('vMarca').value);
+  form.append('modelo',        document.getElementById('vModelo').value);
+  form.append('ano',           document.getElementById('vAno').value);
+  form.append('cor',           document.getElementById('vCor').value);
+  form.append('quilometragem', document.getElementById('vKm').value);
+  form.append('descricao',     document.getElementById('vDesc').value);
+  const foto = document.getElementById('vFoto').files[0];
+  if (foto) form.append('foto', foto);
+
+  try {
+    const res = await api('/veiculos', { method: 'POST', body: form });
+    const data = await res.json();
+    if (!res.ok) throw new Error((data.erros || [data.erro]).join(' '));
+    mostrarAlertaForm('alertaVeiculo', 'Veículo cadastrado com sucesso!', 'sucesso');
+    document.getElementById('formVeiculo').reset();
+    carregarVisaoGeral();
+  } catch (err) {
+    mostrarAlertaForm('alertaVeiculo', err.message, 'erro');
+  }
+  btn.disabled = false;
+  btn.innerHTML = '<i class="bi bi-plus-circle me-2"></i>Cadastrar Veículo';
+}
+
+async function deletarVeiculo(id) {
+  if (!confirm('Remover este veículo?')) return;
+  await api(`/veiculos/${id}`, { method: 'DELETE' });
+  carregarVeiculos();
+  carregarVisaoGeral();
+}
+
+// ── ANÚNCIOS ──────────────────────────────────────────────────────────────────
+async function carregarAnuncios() {
+  const res = await api('/anuncios/meus');
+  const lista = await res.json();
+  const el = document.getElementById('listaAnuncios');
+
+  if (!lista.length) {
+    el.innerHTML = `<div class="text-center py-5" style="color:#475569"><i class="bi bi-megaphone fs-1 d-block mb-2"></i>Nenhum anúncio publicado.</div>`;
+    return;
+  }
+  el.innerHTML = lista.map(a => `
+    <div class="anuncio-item d-flex align-items-center gap-3">
+      ${a.foto
+        ? `<img src="http://localhost:3001${a.foto}" style="width:72px;height:54px;object-fit:cover;border-radius:6px" alt="">`
+        : `<div style="width:72px;height:54px;background:#1e293b;border-radius:6px;display:flex;align-items:center;justify-content:center;color:#475569;font-size:1.4rem"><i class="bi bi-car-front"></i></div>`}
+      <div class="flex-1">
+        <strong style="color:#f1f5f9">${a.marca} ${a.modelo} ${a.ano}</strong><br>
+        <span class="text-danger fw-bold">R$ ${Number(a.preco).toLocaleString('pt-BR')}</span>
+        <span class="ms-2 badge ${a.ativo ? 'bg-success' : 'bg-secondary'}">${a.ativo ? 'Ativo' : 'Inativo'}</span>
+      </div>
+      ${a.ativo ? `<button class="btn btn-sm btn-outline-danger ms-auto" onclick="deletarAnuncio(${a.id})"><i class="bi bi-trash"></i></button>` : ''}
+    </div>
+  `).join('');
+}
+
+async function carregarVeiculosSelect() {
+  const res = await api('/veiculos');
+  const lista = await res.json();
+  const sel = document.getElementById('aVeiculo');
+  sel.innerHTML = '<option value="">Selecione um veículo...</option>' +
+    lista.map(v => `<option value="${v.id}">${v.marca} ${v.modelo} (${v.ano})</option>`).join('');
+}
+
+async function criarAnuncio(e) {
+  e.preventDefault();
+  const btn = document.getElementById('btnSalvarAnuncio');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Publicando...';
+
+  try {
+    const res = await api('/anuncios', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        veiculo_id: document.getElementById('aVeiculo').value,
+        preco:      document.getElementById('aPreco').value,
+        descricao:  document.getElementById('aDesc').value
+      })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error((data.erros || [data.erro]).join(' '));
+    mostrarAlertaForm('alertaAnuncio', 'Anúncio publicado com sucesso!', 'sucesso');
+    document.getElementById('formAnuncio').reset();
+    carregarVisaoGeral();
+  } catch (err) {
+    mostrarAlertaForm('alertaAnuncio', err.message, 'erro');
+  }
+  btn.disabled = false;
+  btn.innerHTML = '<i class="bi bi-megaphone me-2"></i>Publicar Anúncio';
+}
+
+async function deletarAnuncio(id) {
+  if (!confirm('Remover este anúncio?')) return;
+  await api(`/anuncios/${id}`, { method: 'DELETE' });
+  carregarAnuncios();
+  carregarVisaoGeral();
+}
+
+// ── HELPERS ───────────────────────────────────────────────────────────────────
+function mostrarAlertaForm(id, msg, tipo) {
+  const el = document.getElementById(id);
+  el.className = `p-3 mb-3 small ${tipo === 'erro' ? 'alerta-erro' : 'alerta-sucesso'}`;
+  el.textContent = msg;
+  setTimeout(() => el.className = 'd-none', 5000);
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+carregarVisaoGeral();
+</script>
+</body>
+</html>

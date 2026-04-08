@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oficina Bandeira | Tradição e Confiança em Mecânica Automotiva</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container position-relative">
+        <a class="navbar-brand fw-bold" href="#home">
+            <i class="bi bi-tools me-2 text-danger"></i><span>OFICINA</span> BANDEIRA
+        </a>
+        <button class="navbar-toggler border-0" type="button" id="mobileToggle">
+            <i class="bi bi-list text-white fs-4"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto align-items-lg-center">
+                <!-- INÍCIO -->
+                <li class="nav-item has-dropdown">
+                    <a class="nav-link d-flex align-items-center gap-1" href="#home">
+                        Início <i class="bi bi-chevron-down dd-arrow" style="font-size:.7rem"></i>
+                    </a>
+                    <div class="simple-dropdown">
+                        <a href="#home"><i class="bi bi-house"></i>Página Inicial</a>
+                        <a href="#home"><i class="bi bi-star"></i>Destaques</a>
+                    </div>
+                    <div class="mobile-dropdown">
+                        <a href="#home">Página Inicial</a>
+                        <a href="#home">Destaques</a>
+                    </div>
+                </li>
+
+                <!-- SOBRE -->
+                <li class="nav-item has-dropdown">
+                    <a class="nav-link d-flex align-items-center gap-1" href="#sobre">
+                        Sobre <i class="bi bi-chevron-down dd-arrow" style="font-size:.7rem"></i>
+                    </a>
+                    <div class="simple-dropdown">
+                        <a href="#sobre"><i class="bi bi-clock-history"></i>Nossa História</a>
+                        <a href="#sobre"><i class="bi bi-people"></i>Nossa Equipe</a>
+                    </div>
+                    <div class="mobile-dropdown">
+                        <a href="#sobre">Nossa História</a>
+                        <a href="#sobre">Nossa Equipe</a>
+                    </div>
+                </li>
+
+                <!-- SERVIÇOS COM DROPDOWN -->
+                <li class="nav-item has-dropdown mega">
+                    <a class="nav-link d-flex align-items-center gap-1" href="#servicos" id="servicosToggle">
+                        Serviços <i class="bi bi-chevron-down dd-arrow" style="font-size:.7rem"></i>
+                    </a>
+                    <!-- MEGA MENU DESKTOP -->
+                    <div class="mega-dropdown" id="megaMenu">
+                        <div class="mega-col">
+                            <div class="mega-col-title">🔧 Inspeção e Checagem</div>
+                            <a href="#servicos" onclick="agendarServico('Serviços Gerais')"><i class="bi bi-wrench-adjustable"></i>Serviços Gerais</a>
+                            <a href="#servicos" onclick="agendarServico('Checklist Veicular')"><i class="bi bi-clipboard-check"></i>Checklist</a>
+                            <a href="#servicos" onclick="agendarServico('Revisão Preventiva')"><i class="bi bi-shield-check"></i>Revisão Preventiva</a>
+                        </div>
+                        <div class="mega-col">
+                            <div class="mega-col-title">🛠️ Motor</div>
+                            <a href="#servicos" onclick="agendarServico('Testes e Diagnósticos')"><i class="bi bi-cpu"></i>Testes e Diagnósticos</a>
+                            <a href="#servicos" onclick="agendarServico('Troca de Óleo e Filtro')"><i class="bi bi-droplet-half"></i>Troca de Óleo e Filtro</a>
+                        </div>
+                        <div class="mega-col">
+                            <div class="mega-col-title">🚗 Sistema de Freio</div>
+                            <a href="#servicos" onclick="agendarServico('Manutenção de Freios')"><i class="bi bi-disc"></i>Manutenção de Freios</a>
+                            <a href="#servicos" onclick="agendarServico('Sistemas de Segurança')"><i class="bi bi-shield-fill-check"></i>Segurança</a>
+                        </div>
+                        <div class="mega-col">
+                            <div class="mega-col-title">⚙️ Outros</div>
+                            <a href="#servicos" onclick="agendarServico('Iluminação')"><i class="bi bi-lightbulb"></i>Iluminação</a>
+                            <a href="#servicos" onclick="agendarServico('Suspensão')"><i class="bi bi-arrow-down-up"></i>Suspensão</a>
+                            <a href="#servicos" onclick="agendarServico('Diagnóstico Mecânico')"><i class="bi bi-search"></i>Diagnóstico Mecânico</a>
+                        </div>
+                    </div>
+                    <!-- ACCORDION MOBILE -->
+                    <div class="mobile-servicos" id="mobileServicos">
+                        <div class="mobile-cat-title">🔧 Inspeção e Checagem</div>
+                        <a href="#servicos">Serviços Gerais</a>
+                        <a href="#servicos">Checklist</a>
+                        <a href="#servicos">Revisão Preventiva</a>
+                        <div class="mobile-cat-title">🛠️ Motor</div>
+                        <a href="#servicos">Testes e Diagnósticos</a>
+                        <a href="#servicos">Troca de Óleo e Filtro</a>
+                        <div class="mobile-cat-title">🚗 Sistema de Freio</div>
+                        <a href="#servicos">Manutenção de Freios</a>
+                        <a href="#servicos">Segurança</a>
+                        <div class="mobile-cat-title">⚙️ Outros</div>
+                        <a href="#servicos">Iluminação</a>
+                        <a href="#servicos">Suspensão</a>
+                        <a href="#servicos">Diagnóstico Mecânico</a>
+                    </div>
+                </li>
+
+                <!-- PROMOÇÕES -->
+                <li class="nav-item has-dropdown">
+                    <a class="nav-link d-flex align-items-center gap-1" href="#promocoes">
+                        Promoções <i class="bi bi-chevron-down dd-arrow" style="font-size:.7rem"></i>
+                    </a>
+                    <div class="simple-dropdown">
+                        <a href="#promocoes"><i class="bi bi-tag"></i>Ofertas do Mês</a>
+                        <a href="#promocoes"><i class="bi bi-percent"></i>Pacotes Especiais</a>
+                    </div>
+                    <div class="mobile-dropdown">
+                        <a href="#promocoes">Ofertas do Mês</a>
+                        <a href="#promocoes">Pacotes Especiais</a>
+                    </div>
+                </li>
+
+                <!-- CARROS À VENDA -->
+                <li class="nav-item has-dropdown">
+                    <a class="nav-link d-flex align-items-center gap-1" href="#carros">
+                        Carros à Venda <i class="bi bi-chevron-down dd-arrow" style="font-size:.7rem"></i>
+                    </a>
+                    <div class="simple-dropdown">
+                        <a href="#carros"><i class="bi bi-car-front"></i>Ver Estoque</a>
+                        <a href="#carros"><i class="bi bi-whatsapp"></i>Anunciar Meu Carro</a>
+                    </div>
+                    <div class="mobile-dropdown">
+                        <a href="#carros">Ver Estoque</a>
+                        <a href="#carros">Anunciar Meu Carro</a>
+                    </div>
+                </li>
+
+                <!-- CONTATO -->
+                <li class="nav-item has-dropdown">
+                    <a class="nav-link d-flex align-items-center gap-1" href="#contato">
+                        Contato <i class="bi bi-chevron-down dd-arrow" style="font-size:.7rem"></i>
+                    </a>
+                    <div class="simple-dropdown">
+                        <a href="#contato"><i class="bi bi-whatsapp"></i>WhatsApp</a>
+                        <a href="#contato"><i class="bi bi-instagram"></i>Instagram</a>
+                        <a href="#contato"><i class="bi bi-geo-alt"></i>Localização</a>
+                    </div>
+                    <div class="mobile-dropdown">
+                        <a href="#contato">WhatsApp</a>
+                        <a href="#contato">Instagram</a>
+                        <a href="#contato">Localização</a>
+                    </div>
+                </li>
+                <!-- AUTH -->
+                <li class="nav-item ms-lg-2" id="navAuthItem">
+                    <a href="login.html" id="navAuthLink" class="btn btn-outline-danger btn-sm px-3">
+                        <i class="bi bi-person me-1"></i><span id="navAuthText">Entrar</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section id="home" class="hero-section">
+    <div class="container">
+        <div class="row align-items-center min-vh-100">
+            <div class="col-lg-8 mx-auto text-center hero-content">
+                <h1 class="display-3 fw-bold mb-4 animate-fade-in">Tradição, Confiança e Paixão por Carros</h1>
+                <p class="lead mb-5 animate-fade-in-delay">Há mais de 30 anos cuidando do seu veículo com responsabilidade e excelência em Teresópolis/RJ</p>
+                <a href="https://wa.me/5521999999999" target="_blank" class="btn btn-danger btn-lg px-5 py-3 animate-fade-in-delay-2">
+                    <i class="bi bi-whatsapp me-2"></i>Fale Conosco no WhatsApp
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SOBRE -->
+<section id="sobre" class="py-5 bg-alt">
+    <div class="container py-5">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <h2 class="display-5 fw-bold mb-4">Nossa História</h2>
+                <p class="lead mb-4" style="color:#94a3b8">Uma tradição familiar que atravessa gerações</p>
+                <p class="mb-3">A Oficina Bandeira nasceu da paixão por carros e do compromisso com a excelência. Há mais de 30 anos, nossa história começou com um sonho: oferecer serviços mecânicos de qualidade com responsabilidade total pelo veículo de cada cliente.</p>
+                <p class="mb-3">Somos uma empresa familiar, onde o conhecimento e os valores são passados de pai para filho. Essa tradição nos permite unir experiência consolidada com técnicas modernas, atendendo tanto carros nacionais quanto importados.</p>
+                <p class="mb-4">Aqui, cada veículo é tratado com o mesmo cuidado que daríamos ao nosso próprio carro. Confiança não se compra, se conquista — e é isso que fazemos todos os dias.</p>
+                <div class="d-flex gap-4">
+                    <div class="text-center">
+                        <h3 class="display-4 fw-bold text-danger">30+</h3>
+                        <p style="color:#64748b">Anos de Experiência</p>
+                    </div>
+                    <div class="text-center">
+                        <h3 class="display-4 fw-bold text-danger">100%</h3>
+                        <p style="color:#64748b">Responsabilidade</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <img src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=800" alt="Oficina Mecânica" class="img-fluid rounded shadow">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- BANNER -->
+<section class="py-5 banner-red text-white">
+    <div class="container py-4">
+        <div class="col-lg-8 mx-auto text-center">
+            <i class="bi bi-shield-check display-1 mb-3"></i>
+            <h2 class="display-6 fw-bold mb-3">Responsabilidade Total pelo Seu Veículo</h2>
+            <p class="lead">Assumimos o compromisso integral com a segurança e qualidade dos serviços realizados. Seu carro está em mãos confiáveis.</p>
+        </div>
+    </div>
+</section>
+
+<!-- SERVIÇOS -->
+<section id="servicos" class="py-5">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold mb-3">Nossos Serviços</h2>
+            <p class="lead" style="color:#64748b">Clique em qualquer serviço para agendar sua revisão</p>
+        </div>
+
+        <!-- Inspeção -->
+        <div class="mb-5">
+            <div class="d-flex align-items-center mb-4">
+                <span class="fs-3 me-2">🔧</span>
+                <h4 class="fw-bold mb-0 categoria-titulo">Inspeção e Checagem</h4>
+            </div>
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <div class="service-card card h-100" onclick="agendarServico('Serviços Gerais')">
+                        <div class="card-body text-center p-4">
+                            <i class="bi bi-wrench-adjustable service-icon text-danger mb-3"></i>
+                            <h5 class="card-title fw-bold mb-2">Serviços Gerais</h5>
+                            <p class="card-text small">Manutenção preventiva e corretiva completa para seu veículo.</p>
+                            <span class="btn btn-outline-danger btn-sm mt-2"><i class="bi bi-calendar-check me-1"></i>Agendar</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card card h-100" onclick="agendarServico('Checklist Veicular')">
+                        <div class="card-body text-center p-4">
+                            <i class="bi bi-clipboard-check service-icon text-danger mb-3"></i>
+                            <h5 class="card-title fw-bold mb-2">Checklist</h5>
+                            <p class="card-text small">Verificação completa de todos os itens de segurança e funcionamento.</p>
+                            <span class="btn btn-outline-danger btn-sm mt-2"><i class="bi bi-calendar-check me-1"></i>Agendar</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card card h-100" onclick="agendarServico('Revisão de Férias')">
+                        <div class="card-body text-center p-4">
+                            <i class="bi bi-sun service-icon text-danger mb-3"></i>
+                            <h5 class="card-title fw-bold mb-2">Revisão de Férias</h5>
+                            <p class="card-text small">Prepare seu carro para viagens longas com segurança total.</p>
+                            <span class="btn btn-outline-danger btn-sm mt-2"><i class="bi bi-calendar-check me-1"></i>Agendar</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Motor -->
+        <div class="mb-5">
+            <div class="d-flex align-items-center mb-4">
+                <span class="fs-3 me-2">🛠️</span>
+                <h4 class="fw-bold mb-0 categoria-titulo">Motor</h4>
+            </div>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <div class="service-card card h-100" onclick="agendarServico('Testes e Diagnósticos')">
+                        <div class="card-body text-center p-4">
+                            <i class="bi bi-cpu service-icon text-danger mb-3"></i>
+                            <h5 class="card-title fw-bold mb-2">Testes e Diagnósticos</h5>
+                            <p class="card-text small">Diagnóstico computadorizado para identificar falhas com precisão.</p>
+                            <span class="btn btn-outline-danger btn-sm mt-2"><i class="bi bi-calendar-check me-1"></i>Agendar</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="service-card card h-100" onclick="agendarServico('Troca de Óleo e Filtro')">
+                        <div class="card-body text-center p-4">
+                            <i class="bi bi-droplet-half service-icon text-danger mb-3"></i>
+                            <h5 class="card-title fw-bold mb-2">Troca de Óleo e Filtro</h5>
+                            <p class="card-text small">Troca de óleo e filtros com produtos de qualidade para maior durabilidade.</p>
+                            <span class="btn btn-outline-danger btn-sm mt-2"><i class="bi bi-calendar-check me-1"></i>Agendar</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Freios -->
+        <div class="mb-5">
+            <div class="d-flex align-items-center mb-4">
+                <span class="fs-3 me-2">🚗</span>
+                <h4 class="fw-bold mb-0 categoria-titulo">Sistema de Freio</h4>
+            </div>
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <div class="service-card card h-100" onclick="agendarServico('Tradição em Freios')">
+                        <div class="card-body text-center p-4">
+                            <i class="bi bi-award service-icon text-danger mb-3"></i>
+                            <h5 class="card-title fw-bold mb-2">Tradição em Freios</h5>
+                            <p class="card-text small">Mais de 30 anos de experiência em sistemas de frenagem.</p>
+                            <span class="btn btn-outline-danger btn-sm mt-2"><i class="bi bi-calendar-check me-1"></i>Agendar</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card card h-100" onclick="agendarServico('Manutenção dos Freios')">
+                        <div class="card-body text-center p-4">
+                            <i class="bi bi-disc service-icon text-danger mb-3"></i>
+                            <h5 class="card-title fw-bold mb-2">Manutenção dos Freios</h5>
+                            <p class="card-text small">Troca de pastilhas, discos e fluido de freio com garantia.</p>
+                            <span class="btn btn-outline-danger btn-sm mt-2"><i class="bi bi-calendar-check me-1"></i>Agendar</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card card h-100" onclick="agendarServico('Sistemas de Segurança')">
+                        <div class="card-body text-center p-4">
+                            <i class="bi bi-shield-check service-icon text-danger mb-3"></i>
+                            <h5 class="card-title fw-bold mb-2">Sistemas de Segurança</h5>
+                            <p class="card-text small">Verificação e manutenção de ABS e demais sistemas de segurança.</p>
+                            <span class="btn btn-outline-danger btn-sm mt-2"><i class="bi bi-calendar-check me-1"></i>Agendar</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Iluminação -->
+        <div class="mb-2">
+            <div class="d-flex align-items-center mb-4">
+                <span class="fs-3 me-2">💡</span>
+                <h4 class="fw-bold mb-0 categoria-titulo">Iluminação</h4>
+            </div>
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <div class="service-card card h-100" onclick="agendarServico('Revisão de Iluminação')">
+                        <div class="card-body text-center p-4">
+                            <i class="bi bi-lightbulb service-icon text-danger mb-3"></i>
+                            <h5 class="card-title fw-bold mb-2">Revisão de Iluminação</h5>
+                            <p class="card-text small">Verificação e troca de faróis, lanternas e lâmpadas internas.</p>
+                            <span class="btn btn-outline-danger btn-sm mt-2"><i class="bi bi-calendar-check me-1"></i>Agendar</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card card h-100" onclick="agendarServico('Regulagem de Faróis')">
+                        <div class="card-body text-center p-4">
+                            <i class="bi bi-brightness-high service-icon text-danger mb-3"></i>
+                            <h5 class="card-title fw-bold mb-2">Regulagem de Faróis</h5>
+                            <p class="card-text small">Alinhamento e regulagem dos faróis para máxima visibilidade.</p>
+                            <span class="btn btn-outline-danger btn-sm mt-2"><i class="bi bi-calendar-check me-1"></i>Agendar</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card card h-100" onclick="agendarServico('Sistema Elétrico')">
+                        <div class="card-body text-center p-4">
+                            <i class="bi bi-lightning-charge service-icon text-danger mb-3"></i>
+                            <h5 class="card-title fw-bold mb-2">Sistema Elétrico</h5>
+                            <p class="card-text small">Diagnóstico e reparo de falhas elétricas e eletrônicas do veículo.</p>
+                            <span class="btn btn-outline-danger btn-sm mt-2"><i class="bi bi-calendar-check me-1"></i>Agendar</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- MODAL AGENDAMENTO -->
+<div class="modal fade" id="modalAgendamento" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white border-0">
+                <h5 class="modal-title fw-bold"><i class="bi bi-calendar-check me-2"></i>Agendar Revisão</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4 text-center">
+                <p class="mb-1" style="color:#94a3b8">Serviço selecionado:</p>
+                <h5 class="fw-bold text-danger mb-3" id="modalServicoNome"></h5>
+                <p class="mb-4" style="color:#94a3b8">Clique abaixo para falar com a gente no WhatsApp e confirmar seu agendamento. É rápido e fácil! 😊</p>
+                <a id="modalWhatsappLink" href="#" target="_blank" class="btn btn-success btn-lg w-100">
+                    <i class="bi bi-whatsapp me-2"></i>Agendar pelo WhatsApp
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PROMOÇÕES -->
+<section id="promocoes" class="py-5 bg-alt">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold mb-3">Promoções Especiais</h2>
+            <p class="lead" style="color:#64748b">Aproveite nossas ofertas exclusivas</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+                <div class="card promo-card h-100">
+                    <div class="promo-badge">OFERTA</div>
+                    <div class="card-body p-4">
+                        <h5 class="card-title fw-bold mb-3">Revisão Completa</h5>
+                        <p class="card-text mb-3">Revisão geral com troca de óleo, filtros e verificação de 20 itens.</p>
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="text-decoration-line-through me-2" style="color:#475569">R$ 450,00</span>
+                            <span class="h4 text-danger fw-bold mb-0">R$ 349,00</span>
+                        </div>
+                        <a href="https://wa.me/5521999999999" target="_blank" class="btn btn-outline-danger w-100">
+                            <i class="bi bi-whatsapp me-2"></i>Agendar Agora
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="card promo-card h-100">
+                    <div class="promo-badge">OFERTA</div>
+                    <div class="card-body p-4">
+                        <h5 class="card-title fw-bold mb-3">Troca de Pastilhas</h5>
+                        <p class="card-text mb-3">Troca de pastilhas de freio dianteiras com mão de obra inclusa.</p>
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="text-decoration-line-through me-2" style="color:#475569">R$ 280,00</span>
+                            <span class="h4 text-danger fw-bold mb-0">R$ 220,00</span>
+                        </div>
+                        <a href="https://wa.me/5521999999999" target="_blank" class="btn btn-outline-danger w-100">
+                            <i class="bi bi-whatsapp me-2"></i>Agendar Agora
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="card promo-card h-100">
+                    <div class="promo-badge">OFERTA</div>
+                    <div class="card-body p-4">
+                        <h5 class="card-title fw-bold mb-3">Diagnóstico Gratuito</h5>
+                        <p class="card-text mb-3">Diagnóstico computadorizado sem custo na realização do serviço.</p>
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="text-decoration-line-through me-2" style="color:#475569">R$ 80,00</span>
+                            <span class="h4 text-danger fw-bold mb-0">GRÁTIS</span>
+                        </div>
+                        <a href="https://wa.me/5521999999999" target="_blank" class="btn btn-outline-danger w-100">
+                            <i class="bi bi-whatsapp me-2"></i>Consultar
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CARROS À VENDA -->
+<section id="carros" class="py-5">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold mb-3">Carros à Venda</h2>
+            <p class="lead" style="color:#64748b">Veículos de clientes anunciados com confiança</p>
+        </div>
+        <div class="row g-4"></div>
+    </div>
+</section>
+
+<!-- CONTATO -->
+<section id="contato" class="py-5" style="background:#0a0f1e">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold mb-3">Entre em Contato</h2>
+            <p class="lead" style="color:#64748b">Estamos prontos para atender você</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="contact-card text-center p-4">
+                    <i class="bi bi-whatsapp display-4 text-success mb-3"></i>
+                    <h5 class="fw-bold mb-3">WhatsApp</h5>
+                    <p style="color:#64748b" class="mb-3">Fale conosco agora mesmo</p>
+                    <a href="https://wa.me/5521999999999" target="_blank" class="btn btn-success">
+                        <i class="bi bi-whatsapp me-2"></i>Enviar Mensagem
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contact-card text-center p-4">
+                    <i class="bi bi-instagram display-4 text-danger mb-3"></i>
+                    <h5 class="fw-bold mb-3">Instagram</h5>
+                    <p style="color:#64748b" class="mb-3">Siga nossas novidades</p>
+                    <a href="https://instagram.com/oficinabandeira" target="_blank" class="btn btn-danger">
+                        <i class="bi bi-instagram me-2"></i>Seguir Agora
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="contact-card text-center p-4">
+                    <i class="bi bi-geo-alt display-4 text-warning mb-3"></i>
+                    <h5 class="fw-bold mb-3">Localização</h5>
+                    <p style="color:#64748b" class="mb-3">Teresópolis - RJ<br>Região Serrana</p>
+                    <a href="https://maps.google.com" target="_blank" class="btn btn-warning">
+                        <i class="bi bi-map me-2"></i>Ver no Mapa
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="py-4" style="background:#060a14;border-top:1px solid rgba(255,255,255,0.06)">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                <p class="mb-0" style="color:#475569">&copy; 2024 Oficina Bandeira. Todos os direitos reservados.</p>
+            </div>
+            <div class="col-md-6 text-center text-md-end">
+                <a href="https://wa.me/5521999999999" target="_blank" class="text-white me-3 fs-4"><i class="bi bi-whatsapp"></i></a>
+                <a href="https://instagram.com/oficinabandeira" target="_blank" class="text-white fs-4"><i class="bi bi-instagram"></i></a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
