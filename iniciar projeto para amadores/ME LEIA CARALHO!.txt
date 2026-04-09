@@ -1,0 +1,122 @@
+=====================================================
+  ME LEIA CARALHO!
+  Guia de sobrevivência para rodar a Oficina Bandeira
+=====================================================
+
+Se você está lendo isso é porque alguém te passou esse projeto
+e você não faz a menor ideia do que está fazendo. Sem problema.
+Segue o guia.
+
+------------------------------------------------------
+ O QUE VOCÊ PRECISA TER INSTALADO NA SUA MÁQUINA
+------------------------------------------------------
+
+1. .NET 10 SDK
+   - Baixe em: https://dotnet.microsoft.com/download
+   - Escolha ".NET 10.0 SDK" e instale.
+   - Para confirmar que deu certo, abra o CMD e digite:
+       dotnet --version
+     Tem que aparecer algo tipo: 10.x.x
+
+2. Node.js (versão 18 ou superior)
+   - Baixe em: https://nodejs.org
+   - Instale a versão "LTS" (a recomendada).
+   - Para confirmar, abra o CMD e digite:
+       node --version
+     Tem que aparecer algo tipo: v20.x.x
+
+3. PostgreSQL + pgAdmin 4
+   - Baixe em: https://www.postgresql.org/download/windows/
+   - Durante a instalação, vai pedir para criar uma senha.
+     USE EXATAMENTE ESSA SENHA: postgres
+   - O instalador já vem com o pgAdmin 4 junto.
+
+   CONFIGURAÇÃO PADRÃO QUE DEVE USAR:
+   ┌─────────────────────────────────────┐
+   │  Host:     localhost                │
+   │  Porta:    5432                     │
+   │  Usuário:  postgres                 │
+   │  Senha:    postgres                 │
+   └─────────────────────────────────────┘
+
+   Se você colocou outra senha na instalação, vai ter que
+   abrir o arquivo backend-dotnet\appsettings.json e trocar
+   a senha lá também. Peça pra uma IA te ajudar com isso.
+
+
+------------------------------------------------------
+ CRIANDO O BANCO DE DADOS (só faz isso UMA vez)
+------------------------------------------------------
+
+1. Abra o pgAdmin 4 (procura no menu iniciar).
+2. Clique em "Servers" > "PostgreSQL" > conecte com a senha.
+3. Clique com botão direito em "Databases" > "Create" > "Database..."
+4. No campo "Database" escreva exatamente:
+       oficinabandeira
+5. Clique em "Save".
+
+Pronto. Não precisa criar tabela nenhuma.
+O sistema cria tudo automaticamente quando iniciar.
+
+
+------------------------------------------------------
+ CRIANDO O USUÁRIO ADMINISTRADOR (só faz isso UMA vez)
+------------------------------------------------------
+
+1. No pgAdmin 4, clique com botão direito no banco "oficinabandeira".
+2. Clique em "Query Tool".
+3. Abra o arquivo: backend-dotnet\scripts\criar_admin.sql
+4. Copie TODO o conteúdo e cole no Query Tool.
+5. Clique no botão "Play" (triângulo) ou aperte F5.
+
+O admin padrão é:
+   E-mail: admin@oficinabandeira.com
+   Senha:  Admin@123
+
+
+------------------------------------------------------
+ INSTALANDO AS DEPENDÊNCIAS DO FRONTEND (só faz UMA vez)
+------------------------------------------------------
+
+1. Abra o CMD (tecla Windows + R, digite "cmd", Enter).
+2. Navegue até a pasta do frontend:
+       cd /d "CAMINHO_DO_PROJETO\frontend"
+   (troca CAMINHO_DO_PROJETO pelo caminho real na sua máquina)
+3. Digite e dê Enter:
+       npm install
+4. Espera terminar. Pode demorar alguns minutos.
+
+
+------------------------------------------------------
+ INICIANDO O PROJETO (toda vez que quiser rodar)
+------------------------------------------------------
+
+Depois de ter feito tudo acima, é simples:
+
+  Dê DOIS CLIQUES no arquivo "INICIAR PROJETO.bat"
+
+Dois terminais vão abrir (backend e frontend).
+Espera uns segundos e acesse no navegador:
+
+   http://localhost:5173
+
+
+------------------------------------------------------
+ PROBLEMAS COMUNS
+------------------------------------------------------
+
+"Porta 3001 já está em uso"
+→ Já tem o backend rodando. Fecha o terminal do backend e tenta de novo.
+
+"Cannot find module" ou "npm install" deu erro
+→ Você não instalou o Node.js ou não rodou o "npm install" na pasta frontend.
+
+"Connection refused" ou erro de banco
+→ O PostgreSQL não está rodando. Abre o pgAdmin 4 e verifica se o servidor está conectado.
+→ Confirma que criou o banco com o nome exato: oficinabandeira
+
+Qualquer outro erro: copia a mensagem e joga no ChatGPT ou pergunta pra quem te deu esse projeto.
+
+------------------------------------------------------
+ BOA SORTE. VOCÊ VAI PRECISAR.
+------------------------------------------------------
